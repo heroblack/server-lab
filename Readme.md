@@ -5,6 +5,70 @@
 ### Arquitectura de un Backend complejo
 
 ### Estructura de datos
+ * se crea inicialmente una base de datos dummy para trabajar antes de conectar con una base de datos real, la base de datos 
+ dummy se creo en la ruta ./store/dummy_db.js.
+ ```js
+    const store = require('../store/dummy_db')
+    
+    listarData = async (tabla) => {
+      try {
+        let response = await store.list(tabla)
+        console.log(response)
+        }
+        catch(error){
+        console.log(error.message)
+        }
+      }
+        
+    getId = async (tabla,id) => {
+      try {
+      let response = await store.get(tabla,id)
+      console.log(response)
+      }
+      catch(error) {
+        console.log(error.message)
+      }
+    }
+      
+    
+    upsert = async (tabla,data) => {
+      try {
+       let response = await store.upsert(tabla,data)
+       console.log(response)
+      }
+      catch(error) {
+        console.log(error)
+      } 
+      }
+      
+    remove = async (tabla, id) => {
+      try {
+      let response = await store.remove(tabla,id)
+      console.log(response)
+      }
+      catch(error) {
+        console.log(error.message)
+      }
+    }
+    
+    query = async (tabla, q) => {
+      try {
+      let response = await store.query(tabla,q)
+      }
+      catch(error) {
+         console.log(error.message)
+      }    
+}
+    main = async () => {
+     await listarData('user')
+     console.log('.....')
+     await remove('user', "5")
+     console.log('.......')
+     await listarData('user'
+   }
+
+  main()
+ ```
 
 # 2. Creando la estructura principal
 
