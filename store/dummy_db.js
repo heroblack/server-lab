@@ -6,7 +6,15 @@ const db = {
         {id:"3", name:"Daniel", username:"pro"},
         {id:"5", name:"Jana", username:"janis"},
         {id:"4", name:"David", username:"hacker"},
-    ]
+    ],
+    // auth: [
+    //     {
+    //       id: 'NIWTTsuQcrXwB0Kku46sv',
+    //       username: 'cr7',
+    //       password: '$2b$10$A4hJUyw/3fQ2aLxGUn6cpuBNmLS8S42b6y6sCWqaskYMLgQc3j.Fe'
+    //     }
+    //   ]
+    
 }
 
 list = async (tabla) => {
@@ -22,7 +30,7 @@ upsert = async (tabla, data) => {
     if(!db[tabla]) {
         db[tabla] = []
     }
-
+    console.log('db:', db)
     db[tabla].push(data)
     return data
 }
@@ -44,7 +52,7 @@ query = async (tabla, q) => {
    let keys = Object.keys(q)
    let key = keys[0]
 
-   return col.filter(item => new RegExp(item[key], "i") === new RegExp(q[key], "i"))[0] || null
+   return col.filter(item => item[key] === q[key])[0] || null
 }
 
 module.exports = {

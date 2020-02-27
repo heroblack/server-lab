@@ -74,7 +74,37 @@
 
 ### Api y rutas
 
+
 ### Aislar el codigo de la base de datos
+Creamos  en la Raiz del projecto un directorio llamado
+store que va contener todos los accesos a nuestra base 
+de datos, para el proyecto inicialmente usamos una
+base de datos dummy  la cual se llama dummy_db.js,
+mas adelante se va a crear una que se llame mysql_db.js.
+```js
+  // users/index.js
+  const store = require('../../../store/dummy_db')
+  const ctr = require('./controller')
+  module.exports = ctr(store)
+  // users/controller.js
+  const TABLA = 'user'
+
+module.exports = function (injectStore) {
+    let store = injectStore
+
+    if(!store) {
+        store = require('../../../store/dummy_db')
+    }
+
+    function list() {
+        return store.list(TABLA)
+    }
+
+    return {
+        list
+    }
+}
+```
 
 ### Rutas para usuarios
 
