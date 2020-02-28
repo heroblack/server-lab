@@ -2,16 +2,19 @@ const express = require('express')
 const response = require('../../../network/response')
 const router = express.Router()
 const Controller = require('./')
+const secure = require('./secure')
 
 router.get('/', list)
 router.get('/:id', get)
-router.post('/', upsert)
-router.put('/', upsert)
+router.post('/',upsert)
+router.put('/',secure('update'), upsert)
 
 async function list(req,res) {
+  
   try{
     const users = await Controller.list();
     response.success(req,res, users,200)
+
     }
     catch(error) {
       response.error(req,res,error)
@@ -32,6 +35,7 @@ async function get(req, res) {
 }
 
 async function upsert(req, res) {
+
   let data = req.body
   try {
         let userResponse = await Controller.upsert(data)
